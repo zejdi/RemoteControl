@@ -7,6 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
 	<title></title>
 	<style type="text/css">
 		
@@ -64,10 +65,96 @@
 			border-top-right-radius: 0.5vw;
 			border-top-left-radius: 0.5vw;	
 		}
+		#sidenav{
+			width: 0vw;
+			height: 100%;
+			position: fixed;
+			background-color: rgba(15,15,15,0.2);
+			transition: 0.5s;
+			top: 0;
+			left: 0;
+		}
 
-		#wheel-modal{
+		#wheel-container{
+			width: 100%;
+			overflow: hidden;
+			transition: 0.5s;
+		}
+		#wheel-header{
+			height: 4vw;
+			width: 100%;
+			background-color: rgb(233,43,43);
+			text-align: center;
+			font-size: 1.6vw;
+			color: white;
+			font-style: bold;
+			font-family: 'Righteous', cursive;
+			border-bottom: 0.2px solid rgb(23,23,23);
+
+		}
+		#wheel-header p{
+			padding: 0;
+			display: inline-block;
+			margin-top: 0;
+			margin-top: 0.9vw;
+		}
+		#wheel-body{
+			width: 100%;
+			height: 18vw;
+			border-bottom: 1px solid rgb(23,23,23);
+			background-color: rgb(222,222,222);
+		}
+		#wheel-body p{
+			display: inline-block;
+			font-size: 2vw;
+			margin: 0;
+			margin-top: 0.5vw;
+			margin-left: 8vw;
+			text-align: center;
+			font-family: 'Righteous',cursive;
+		}
+		#wheel-body p:last-of-type{
+			display: inline-block;
+			font-size: 2vw;
+			margin: 0;
+			margin-top: 0.5vw;
+			margin-left: 9.4vw;
+			text-align: center;
+			font-family: 'Righteous',cursive;
+		}
+
+		#wheel-body select
+		{
+			display: block;
+			width: 25vw;
+			font-family: "Cambria";
+			text-align: center;
+			padding-left: 9vw;
+			font-size: 2vw;
+			height: 3vw;
+		}
+
+		#wheel-body input[type=number]{
+			width: 24.9vw;
+			height: 3vw;
+			border:1px solid #ABABAB;
+			font-family: "Cambria";
+			text-align: center;
+			font-size: 2vw;
+		}
+
+		#wheel-modal-button{
+			font-family: "Cambria";
+			margin-top: 1.5vw;
+			margin-left: 4.5vw;
+			height: 3vw;
+			width: 15vw;
+			font-size: 1.5vw;
+			padding-top: 0.1vw;
+		}
+		/*#wheel-modal{
 			position: absolute;
-			top: 25vh;
+			top: 25vw;
 			left: 36vw;
 			visibility: hidden;
 			opacity: 0;
@@ -80,7 +167,7 @@
 		}
 
 		#wheel-modal-header{
-			height: 5.5vh;
+			height: 3.5vw;
 			width: 100%;
 			border-top-right-radius:2%; 
 			border-top-left-radius:2%;
@@ -88,13 +175,14 @@
 			background-color: rgb(233,43,43);
 			text-align: center;
 			font-family:"Cambria"; 
-			font-size: 24.5px;
 			padding-top: 0.5vw;
 			padding-bottom: 0;
 		}
 
 		#wheel-modal-header p{
 			margin-top: 0;
+			font-size: 1.9vw;
+			margin-top: 0.0001vw;
 			display: inline-block;
 		}
 		#wheel-modal-header img{
@@ -112,6 +200,7 @@
 			text-align: center;
 			font-family: "Cambria";
 			font-size: 2vw;
+			height: 20vw;
 		}
 		#wheel-modal-body p{
 			margin-top: 0.5vw;
@@ -133,13 +222,157 @@
 			bottom: 1px solid #323232;
 			font-weight: bold;
 		}
+		}*/
 
-		#wheel-modal-button{
-			font-family: "Cambria";
-			height: 2vw;
-			width: 15vw;
-			font-size: 1.5vw;
-			padding-bottom: 1.8vw;
+		#keyboard-grid{
+			visibility: hidden;
+			position: absolute;
+			top: 15vw;
+			left: 18vw;
+			width: 65vw;
+			height: 17.5vw;
+			display: grid;
+			background-color: rgba(45,45,45,0.8);
+			border-radius: 0.9vw;
+			grid-template-rows: 3vw 3vw 3vw 3vw 3vw;
+		}
+
+
+		.row-1{
+			background-color: rgb(233,125,125);
+			border-radius: 0.2555vw;
+			width: 3vw;
+			border-bottom: 0.15vw solid rgb(43,43,43);
+			margin-left: 1.13vw;
+			height: 1.6vw;
+			padding-top: 0.4vw;
+			text-align: center;
+			font-size: 1.1vw;
+			grid-row: 1;
+		}
+		.row-1:first-child{
+			margin-left: 0px;
+			border-top-left-radius: 1.1vw;
+		}
+		.row-1:nth-child(16){
+			border-top-right-radius:1.1vw;
+		}
+		.row-1:active{
+			background-color: rgb(244,32,32);
+		}
+		.row-2{
+			grid-row: 2;
+			width: 3vw;
+			text-align: center;
+			height: 1.6vw;
+			padding-top: 0.4vw;
+			background-color: green;
+			background-color: rgb(233,125,125);
+			border-bottom: 0.15vw solid rgb(43,43,43);
+			margin-left: 1.13vw;
+			font-size: 1.1vw;
+			margin-top: 0;
+			border-radius: 0.2555vw;
+		}
+		.row-2:nth-child(17){
+			margin-left: 0;
+		}
+
+		.row-2:active{
+			background-color: rgb(244,32,32);
+		}
+
+		.row-3{
+			grid-row: 3;
+			width: 3vw;
+			text-align: center;
+			height: 1.6vw;
+			padding-top: 0.4vw;
+			background-color: green;
+			background-color: rgb(233,125,125);
+			border-bottom: 0.15vw solid rgb(43,43,43);
+			margin-left: 1.13vw;
+			margin-top: 0;
+			font-size: 1.1vw;
+			border-radius: 0.2555vw;
+		}
+		.row-3:nth-child(33)
+		{
+			margin-left: 0;
+		}
+		.row-3:active{
+			background-color: rgb(244,32,32);
+		}
+
+		.row-4{
+			grid-row: 4;
+			width: 3vw;
+			text-align: center;
+			height: 1.6vw;
+			padding-top: 0.4vw;
+			background-color: green;
+			background-color: rgb(233,125,125);
+			border-bottom: 0.15vw solid rgb(43,43,43);
+			margin-left: 1.13vw;
+			margin-top: 0;
+			font-size: 1.1vw;
+			border-radius: 0.2555vw;
+		}
+
+		.row-4:nth-child(49){
+			margin-left: 0;
+		}
+
+		.row-4:active{
+			background-color: rgb(244,32,32);
+		}
+
+		.row-5{
+			grid-row: 5;
+			width: 3vw;
+			text-align: center;
+			height: 1.6vw;
+			padding-top: 0.4vw;
+			background-color: green;
+			background-color: rgb(233,125,125);
+			border-bottom: 0.15vw solid rgb(43,43,43);
+			margin-left: 1.13vw;
+			margin-top: 0;
+			font-size: 1.1vw;
+			border-radius: 0.2555vw;
+		}
+
+		.row-5:nth-child(65){
+			margin-left: 0;
+		}
+		.row-5:active{
+			background-color: rgb(244,32,32);
+		}
+
+		.row-6{
+			grid-row: 6;
+			width: 3vw;
+			text-align: center;
+			height: 1.6vw;
+			padding-top: 0.4vw;
+			background-color: green;
+			background-color: rgb(233,125,125);
+			border-bottom: 0.15vw solid rgb(43,43,43);
+			margin-left: 1.13vw;
+			margin-top: 0;
+			font-size: 1.1vw;
+			border-radius: 0.2555vw;
+		}
+
+		.row-6:nth-child(81){
+			margin-left: 0;
+		}
+		.row-6:active{
+			background-color: rgb(244,32,32);
+		}
+
+		.pointer-cursor{
+			cursor: pointer;
 		}
 
 		body::-webkit-scrollbar{
@@ -155,11 +388,12 @@
 		<li>Double-Left-Click Mouse</li>
 		<li>Right-Click Mouse</li>
 		<li>Wheel Mouse</li>
+		<li>Keyboard</li>
 	</ul>
 </div>
 <div id="main">
 </div>
-<div id="wheel-modal">
+<!--<div id="wheel-modal">
 <div id="wheel-modal-header">
 	<img src="close.png" onmouseenter="OnImageEnter(this)" onmouseleave="OnImageLeave(this)" onclick="OnModalImageClick()">
 	<p>Specify direction and delta</p>
@@ -180,6 +414,127 @@
 </form>
 </div>
 </div>
+-->
+<div id="sidenav">
+	<div id="wheel-container">
+		<div id="wheel-header">
+			<p>Specify the direction and delta</p>
+		</div>
+		<div id="wheel-body">
+			<form onsubmit="return OnButtonClick(this)">
+			<p>Direction</p>
+				<select name="direction">
+				<option selected>Up</option>
+				<option>Down</option>
+				<option>Left</option>
+				<option>Right</option>
+				</select>
+				<p>Delta</p>
+				<input type="number" name="delta" onchange="OnDeltaChange(this)" onkeyup="OnDeltaChange(this)">
+					<br>
+				<button id="wheel-modal-button">Click</button>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="keyboard">
+	<div id="keyboard-grid">
+		<div class="row-1 pointer-cursor" name="27">Esc</div>
+		<div class="row-1 pointer-cursor" name="112">F1</div>
+		<div class="row-1 pointer-cursor" name="113">F2</div>
+		<div class="row-1 pointer-cursor" name="114">F3</div>
+		<div class="row-1 pointer-cursor" name="115">F4</div>
+		<div class="row-1 pointer-cursor" name="116">F5</div>
+		<div class="row-1 pointer-cursor" name="117">F6</div>
+		<div class="row-1 pointer-cursor" name="118">F7</div>
+		<div class="row-1 pointer-cursor" name="119">F8</div>
+		<div class="row-1 pointer-cursor" name="120">F9</div>
+		<div class="row-1 pointer-cursor" name="121">F10</div>
+		<div class="row-1 pointer-cursor" name="122">F11</div> 
+		<div class="row-1 pointer-cursor" name="123">F12</div>
+		<div class="row-1 pointer-cursor" name="44">Pr.Scr</div>
+		<div class="row-1 pointer-cursor" name="145">ScrLo</div>
+		<div class="row-1 pointer-cursor" name="19">Pause</div>
+
+		<div class="row-2 pointer-cursor" name="192">`</div>
+		<div class="row-2 pointer-cursor" name="49">1</div>
+		<div class="row-2 pointer-cursor" name="50">2</div>
+		<div class="row-2 pointer-cursor" name="51">3</div>
+		<div class="row-2 pointer-cursor" name="52">4</div>
+		<div class="row-2 pointer-cursor" name="53">5</div>
+		<div class="row-2 pointer-cursor" name="54">6</div>
+		<div class="row-2 pointer-cursor" name="55">7</div>
+		<div class="row-2 pointer-cursor" name="56">8</div>
+		<div class="row-2 pointer-cursor" name="57">9</div>
+		<div class="row-2 pointer-cursor" name="189">-</div>
+		<div class="row-2 pointer-cursor" name="187">=</div>
+		<div class="row-2 pointer-cursor" name="8">BaSp</div>
+		<div class="row-2 pointer-cursor" name="45">Insert</div>
+		<div class="row-2 pointer-cursor" name="36">Home</div>
+		<div class="row-2 pointer-cursor" name="33">Pa.Up</div>
+
+		<div class="row-3 pointer-cursor" name="9">Tab</div>
+		<div class="row-3 pointer-cursor" name="81">q</div>
+		<div class="row-3 pointer-cursor" name="87">w</div>
+		<div class="row-3 pointer-cursor" name="69">e</div>
+		<div class="row-3 pointer-cursor" name="82">r</div>
+		<div class="row-3 pointer-cursor" name="84">t</div>
+		<div class="row-3 pointer-cursor" name="89">y</div>
+		<div class="row-3 pointer-cursor" name="85">u</div>
+		<div class="row-3 pointer-cursor" name="73">i</div>
+		<div class="row-3 pointer-cursor" name="79">o</div>
+		<div class="row-3 pointer-cursor" name="80">p</div>
+		<div class="row-3 pointer-cursor" name="219">[</div>
+		<div class="row-3 pointer-cursor" name="221">]</div>
+		<div class="row-3 pointer-cursor" name="46">Delete</div>
+		<div class="row-3 pointer-cursor" name="35">End</div>
+		<div class="row-3 pointer-cursor" name="34">Pg.D</div>
+
+		<div class="row-4 pointer-cursor" name="20">CaLo</div>
+		<div class="row-4 pointer-cursor" name="65">a</div>
+		<div class="row-4 pointer-cursor" name="83">s</div>
+		<div class="row-4 pointer-cursor" name="68">d</div>
+		<div class="row-4 pointer-cursor" name="70">f</div>
+		<div class="row-4 pointer-cursor" name="71">g</div>
+		<div class="row-4 pointer-cursor" name="72">h</div>
+		<div class="row-4 pointer-cursor" name="74">j</div>
+		<div class="row-4 pointer-cursor" name="75">k</div>
+		<div class="row-4 pointer-cursor" name="76">l</div>
+		<div class="row-4 pointer-cursor" name="186">;</div>
+		<div class="row-4 pointer-cursor" name="222">'</div>
+		<div class="row-4 pointer-cursor" name="220">\</div>
+		<div class="row-4 pointer-cursor" name="13">Enter</div>
+		<div class="row-4 pointer-cursor" name="38">Up</div>
+		<div class="row-4 pointer-cursor" name="144">NuLo</div>
+
+		<div class="row-5 pointer-cursor" name="160">Shift</div>
+		<div class="row-5 pointer-cursor" name="90">z</div>
+		<div class="row-5 pointer-cursor" name="88">x</div>
+		<div class="row-5 pointer-cursor" name="67">c</div>
+		<div class="row-5 pointer-cursor" name="86">v</div>
+		<div class="row-5 pointer-cursor" name="66">b</div>
+		<div class="row-5 pointer-cursor" name="78">n</div>
+		<div class="row-5 pointer-cursor" name="77">m</div>
+		<div class="row-5 pointer-cursor" name="188">,</div>
+		<div class="row-5 pointer-cursor" name="190">.</div>
+		<div class="row-5 pointer-cursor" name="191">?</div>
+		<div class="row-5 pointer-cursor" name="161">Shift</div>
+		<div class="row-5 pointer-cursor" name=""></div>
+		<div class="row-5 pointer-cursor" name="37">Left</div>
+		<div class="row-5 pointer-cursor" name="40">Down</div>
+		<div class="row-5 pointer-cursor" name="39">Right</div>
+ 
+		<div class="row-6 pointer-cursor" name="162">Ctrl</div>
+		<div class="row-6 pointer-cursor" name="91">Win</div>
+		<div class="row-6 pointer-cursor" name="164">Alt</div>
+		<div class="row-6 pointer-cursor" name="" style="grid-column-start: span 9;width: 36.1vw;">Space</div>
+		<div class="row-6 pointer-cursor" name="165">Alt</div>
+		<div class="row-6 pointer-cursor" name="92">Win</div>
+		<div class="row-6 pointer-cursor" name="93">Menu</div>
+		<div class="row-6 pointer-cursor" name="163">Ctrl</div>
+	
+	</div>
+</div>
 <script type="text/javascript">
 //Variable section	
 var relImageCalled=false;
@@ -188,17 +543,52 @@ var contextmenu = document.getElementById("contextmenu");
 var Ajax = new XMLHttpRequest();
 var x,y;
 var contextmenuOptions= document.querySelectorAll("#contextmenu ul li");
-var wheel_modal = document.getElementById("wheel-modal");
-
+var sidenavWheel = document.getElementById("sidenav");
+var keyboardg = document.getElementById("keyboard-grid");
 
 //Function Section
+
+function OnKeyboardGridDrag(e)
+{
+	if(e.which == 1)
+	{
+		document.onmousemove = OnMouseMove;
+		document.onmouseup = clearEvent;
+	}
+}
+
+function clearEvent(e)
+{
+	document.onmousemove = null;
+	document.onmouseup = null;
+}
+
+function OnMouseMove(e)
+{
+	keyboardg.style.top = e.clientY + "px";
+	keyboardg.style.left = e.clientX  + "px";
+}
+
+function OnKeyClicked(e)
+{
+	var audio = new Audio("Click.wav");
+	audio.volume= 0.5;
+	audio.play();
+	Ajax.open("GET","Keyboard.php?times=combination&firstkey=160&secondkey="+e.srcElement.getAttribute("name"),true);
+	Ajax.send();
+}
+					
+function OnKeyboardKeyClicked(e)
+{
+	Ajax.open("GET","Keyboard.php?times=single&key=")
+}
 
 Ajax.onreadystatechange = function(){
 	if(this.readyState == 4 && this.status == 200)
 	{
 		if(relImageCalled)
 		{
-			setTimeout(function(){mainDOMObject.style.backgroundImage = 'url(Screen.png?'+Math.random()+')';},500);
+			setTimeout(function(){mainDOMObject.style.backgroundImage = 'url(Screen.png?'+Math.random()+')';},800);
 			relImageCalled=false;
 		}
 	}
@@ -233,8 +623,7 @@ function ReloadImage()
 {
 	relImageCalled=true;
 	Ajax.open("GET","ScreenCapture.php",false);
-	Ajax.send();
-	
+	Ajax.send();	
 }
 
 function OnImageEnter(e)
@@ -281,18 +670,34 @@ function onClickEvent(e){
 	}
 	else if(this.innerHTML == "Wheel Mouse")
 	{
-		var wheelModalCompStyle=window.getComputedStyle(wheel_modal);
-		if(wheelModalCompStyle.visibility == "hidden")
+		var WheelCompStyle = window.getComputedStyle(sidenavWheel);
+		if(WheelCompStyle.width == "0px")
 		{
-			wheel_modal.style.opacity = "1.0";
-			wheel_modal.style.visibility = "visible";
+			sidenavWheel.style.width = "25vw";
 			contextmenu.style.opacity = "0";
 		    contextmenu.style.visibility = "hidden";
-		}
-		else if(wheelModalCompStyle.visibility == "visible")
+		}	
+		else
 		{
-			wheel_modal.style.opacity = "0";
-			wheel_modal.style.visibility = "hidden";	
+			sidenavWheel.style.width="0vw";
+			contextmenu.style.opacity = "0";
+		    contextmenu.style.visibility = "hidden";
+		}	
+	}
+	else if(this.innerHTML == "Keyboard")
+	{
+		var keyboardgCompStyle = window.getComputedStyle(keyboardg);
+		if(keyboardgCompStyle.visibility == "hidden")
+		{
+			keyboardg.style.opacity = "1.0";
+			keyboardg.style.visibility = "visible";
+			contextmenu.style.opacity = "0";
+		    contextmenu.style.visibility = "hidden";
+		} 
+		else if(keyboardgCompStyle.visibility == "visible")
+		{
+			keyboardg.style.opacity = "0";
+			keyboardg.style.visibility = "hidden";	
 			contextmenu.style.opacity = "0";
 		    contextmenu.style.visibility = "hidden";
 		}
@@ -307,8 +712,6 @@ function onClickEvent(e){
 //Code
 console.log(mainDOMObject);
 console.log(contextmenuOptions);
-console.log(wheel_modal);
-
 mainDOMObject.oncontextmenu=function(e)
 {
 	var conMenuCompStyle=window.getComputedStyle(contextmenu);
@@ -350,6 +753,13 @@ mainDOMObject.addEventListener("click",function(e){
 	}
 });
 
+var keyboard = document.querySelectorAll("#keyboard-grid div");
+for(var elem of keyboard)
+{
+	elem.onclick=OnKeyClicked;
+}
+
+keyboardg.onmousedown = OnKeyboardGridDrag;
 
 </script>
 </body>
