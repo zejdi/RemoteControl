@@ -235,8 +235,17 @@
 			background-color: rgba(45,45,45,0.8);
 			border-radius: 0.9vw;
 			grid-template-rows: 3vw 3vw 3vw 3vw 3vw;
+			transition: visibility 0.15s linear,opacity 0.15s linear;
 		}
 
+		#move{
+			background-color: rgba(45,45,45,0.8);
+			top: -1.2vw;
+			display: inline-block;
+			width: 1.5vw;
+			height: 1vw;
+			position: absolute;
+		}
 
 		.row-1{
 			background-color: rgb(233,125,125);
@@ -439,6 +448,7 @@
 </div>
 <div id="keyboard">
 	<div id="keyboard-grid">
+		
 		<div class="row-1 pointer-cursor" name="27">Esc</div>
 		<div class="row-1 pointer-cursor" name="112">F1</div>
 		<div class="row-1 pointer-cursor" name="113">F2</div>
@@ -519,7 +529,7 @@
 		<div class="row-5 pointer-cursor" name="190">.</div>
 		<div class="row-5 pointer-cursor" name="191">?</div>
 		<div class="row-5 pointer-cursor" name="161">Shift</div>
-		<div class="row-5 pointer-cursor" name=""></div>
+		<div class="row-5 pointer-cursor" id="repetition_opti" value="single"></div>
 		<div class="row-5 pointer-cursor" name="37">Left</div>
 		<div class="row-5 pointer-cursor" name="40">Down</div>
 		<div class="row-5 pointer-cursor" name="39">Right</div>
@@ -533,6 +543,7 @@
 		<div class="row-6 pointer-cursor" name="93">Menu</div>
 		<div class="row-6 pointer-cursor" name="163">Ctrl</div>
 	
+		<div id="move"></div>
 	</div>
 </div>
 <script type="text/javascript">
@@ -545,6 +556,8 @@ var x,y;
 var contextmenuOptions= document.querySelectorAll("#contextmenu ul li");
 var sidenavWheel = document.getElementById("sidenav");
 var keyboardg = document.getElementById("keyboard-grid");
+var move = document.getElementById("move");
+var repetition_opti = document.getElementById("repetition_opti");
 
 //Function Section
 
@@ -555,6 +568,11 @@ function OnKeyboardGridDrag(e)
 		document.onmousemove = OnMouseMove;
 		document.onmouseup = clearEvent;
 	}
+}
+
+function onClickRepetitionOpt(e)
+{
+	alert(e);
 }
 
 function clearEvent(e)
@@ -571,11 +589,12 @@ function OnMouseMove(e)
 
 function OnKeyClicked(e)
 {
+	
 	var audio = new Audio("Click.wav");
 	audio.volume= 0.5;
 	audio.play();
-	Ajax.open("GET","Keyboard.php?times=combination&firstkey=160&secondkey="+e.srcElement.getAttribute("name"),true);
-	Ajax.send();
+	// Ajax.open("GET","Keyboard.php?times=combination&firstkey=160&secondkey="+e.srcElement.getAttribute("name"),true);
+	// Ajax.send();
 }
 					
 function OnKeyboardKeyClicked(e)
@@ -759,7 +778,8 @@ for(var elem of keyboard)
 	elem.onclick=OnKeyClicked;
 }
 
-keyboardg.onmousedown = OnKeyboardGridDrag;
+move.onmousedown = OnKeyboardGridDrag;
+repetition_opti.addEventListener("click",onClickRepetitionOpt);
 
 </script>
 </body>
