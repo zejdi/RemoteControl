@@ -13,6 +13,10 @@ elseif (isset($_GET["times"]) && isset($_GET["firstkey"]) && isset($_GET["second
 	{
 		exec("start Keyboard.exe combination ".$_GET["firstkey"]." ".$_GET["secondkey"]);
 	}
+	elseif(strcmp($_GET["times"], "dcombination")==0 && isset($_GET["thirdkey"]))
+	{
+		exec("start Keyboard.exe dcombination ".$_GET["firstkey"]." ".$_GET["secondkey"]." ".$_GET["thirdkey"]);
+	}
 }
 
 ?>

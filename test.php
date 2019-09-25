@@ -246,7 +246,38 @@
 			height: 1vw;
 			position: absolute;
 		}
+		#repet{
+			position: absolute;
+			display: inline-block;
+			width: 1vw;
+			left: 3vw;
+			height: 1vw;
+			top: -2vw;
+			visibility: hidden;
+		}
 
+		#repet input[type="number"]{
+			left: 3vw;
+			width: 6vw;
+			text-align: center;
+			height: 1.5vw;
+			border-radius: 0.5vw;
+			border: 1px solid rgb(143,143,143);
+			outline: none;
+		}
+
+		#comb{
+			position: absolute;
+			top: -2vw;
+			height: 1.5vw;
+			width: 10vw;
+			text-align: center;
+			background-color: white;
+			border-radius: 0.5vw;
+			border: 1px solid rgb(143,143,143);		
+			left: 3vw;
+			visibility: hidden;
+		}
 		.row-1{
 			background-color: rgb(233,125,125);
 			border-radius: 0.2555vw;
@@ -384,6 +415,23 @@
 			cursor: pointer;
 		}
 
+		#repetition{
+			position: absolute;
+			top: -2.5vw;
+			transition: all 0.5s;
+			left: 45vw;
+			width: 10vw;
+			height: 2.4vw;
+			font-size: 2vw;
+			color: white;
+			border-bottom:1px solid rgb(23,23,23);
+			border-bottom-right-radius: 0.5vw;
+			border-bottom-left-radius: 0.5vw;
+			background-color: rgb(233,33,33);
+			text-align: center;
+
+		}
+
 		body::-webkit-scrollbar{
 			width: 0px;
 		}
@@ -446,9 +494,9 @@
 		</div>
 	</div>
 </div>
+<div id="repetition">Single</div>
 <div id="keyboard">
 	<div id="keyboard-grid">
-		
 		<div class="row-1 pointer-cursor" name="27">Esc</div>
 		<div class="row-1 pointer-cursor" name="112">F1</div>
 		<div class="row-1 pointer-cursor" name="113">F2</div>
@@ -544,10 +592,15 @@
 		<div class="row-6 pointer-cursor" name="163">Ctrl</div>
 	
 		<div id="move"></div>
+		<div id="repet"><input id="num" type="number" name="repet" placeholder="Repetition" onchange="onRepetationChange(this)" onkeyup="onRepetationChange(this)"></div>
+		<div id="comb"></div>
 	</div>
 </div>
 <script type="text/javascript">
 //Variable section	
+var Combination;
+var CombArray = [];
+var ComArrayIdent = 0; 
 var relImageCalled=false;
 var mainDOMObject = document.getElementById('main');
 var contextmenu = document.getElementById("contextmenu");
@@ -558,6 +611,9 @@ var sidenavWheel = document.getElementById("sidenav");
 var keyboardg = document.getElementById("keyboard-grid");
 var move = document.getElementById("move");
 var repetition_opti = document.getElementById("repetition_opti");
+var repetition_indic = document.getElementById("repetition");
+var multiple = document.getElementById("repet");
+var combin = document.getElementById("comb");
 
 //Function Section
 
@@ -572,7 +628,28 @@ function OnKeyboardGridDrag(e)
 
 function onClickRepetitionOpt(e)
 {
-	alert(e);
+	if(repetition_indic.innerHTML == "Single")
+	{
+		repetition_indic.innerHTML = "Multiple";
+		multiple.style.visibility = "visible";
+	}
+	else if(repetition_indic.innerHTML == "Multiple")
+	{
+		repetition_indic.innerHTML = "Combi";
+		multiple.style.visibility = "hidden";
+		combin.style.visibility = "visible";
+	}
+	else if (repetition_indic.innerHTML == "Combi") {
+		repetition_indic.innerHTML = "DCombi";
+		combin.innerHTML = "";
+	}
+	else if (repetition_indic.innerHTML == "DCombi"){
+		repetition_indic.innerHTML = "Single"
+		combin.style.visibility = "hidden";
+		combin.innerHTML = "";
+		CombArray = [];
+		ComArrayIdent = 0;
+	}
 }
 
 function clearEvent(e)
@@ -593,8 +670,80 @@ function OnKeyClicked(e)
 	var audio = new Audio("Click.wav");
 	audio.volume= 0.5;
 	audio.play();
-	// Ajax.open("GET","Keyboard.php?times=combination&firstkey=160&secondkey="+e.srcElement.getAttribute("name"),true);
-	// Ajax.send();
+	if(repetition_indic.innerHTML == "Single")
+	{
+		Ajax.open("GET","Keyboard.php?times=single&key="+e.srcElement.getAttribute("name"),true);
+		Ajax.send();
+	}
+	else if(repetition_indic.innerHTML == "Multiple")
+	{
+		var repetition_value = document.getElementById("num");
+		Ajax.open("GET","Keyboard.php?times=multiple&key="+e.srcElement.getAttribute("name")+"&repetition="+repetition_value.value);
+		Ajax.send();
+	}
+	else if(repetition_indic.innerHTML == "Combi")
+	{
+		if(e.srcElement.innerHTML == "Ctrl")
+		{
+				Combination ="" + e.srcElement.getAttribute("name");
+				comb.innerHTML = "Ctrl";
+		}
+		else if(e.srcElement.innerHTML == "Alt")
+		{
+				Combination ="" + e.srcElement.getAttribute("name");
+				comb.innerHTML = "Alt";		
+		}
+		else if(e.srcElement.innerHTML == "Shift")
+		{
+				Combination ="" + e.srcElement.getAttribute("name");
+				comb.innerHTML = "Shift";
+		}
+		else if(e.srcElement.innerHTML == "Win")
+		{
+				Combination ="" + e.srcElement.getAttribute("name");
+				comb.innerHTML = "Win";
+		}
+		else
+		{
+			if(Combination != null || Combination != "")
+			{
+				Ajax.open("GET","Keyboard.php?times=combination&firstkey="+Combination+"&secondkey="+e.srcElement.getAttribute("name"),true);
+				Ajax.send();
+			}
+		}
+	}
+	else if(repetition_indic.innerHTML == "DCombi")
+	{
+		if(ComArrayIdent<2){
+				if(e.srcElement.innerHTML == "Ctrl")
+				{
+						CombArray[ComArrayIdent++] ="" + e.srcElement.getAttribute("name");
+						comb.innerHTML = comb.innerHTML + " " + e.srcElement.innerHTML;
+				}
+				else if(e.srcElement.innerHTML == "Alt")
+				{
+						CombArray[ComArrayIdent++] ="" + e.srcElement.getAttribute("name");
+						comb.innerHTML = comb.innerHTML + " " + e.srcElement.innerHTML;
+				}
+				else if(e.srcElement.innerHTML == "Shift")
+				{
+						CombArray[ComArrayIdent++] ="" + e.srcElement.getAttribute("name");
+						comb.innerHTML = comb.innerHTML + " " +  e.srcElement.innerHTML;
+				}
+				else if(e.srcElement.innerHTML == "Win")
+				{
+						CombArray[ComArrayIdent++] ="" + e.srcElement.getAttribute("name");
+						comb.innerHTML = comb.innerHTML + " " + e.srcElement.innerHTML;
+				}
+		}
+		else
+		{
+			Ajax.open("GET","Keyboard.php?times=dcombination&firstkey="+CombArray[0]+"&secondkey="+CombArray[1]+"&thirdkey="+e.srcElement.getAttribute("name"),true);
+			Ajax.send();
+		}
+	}
+	
+	ReloadImage();
 }
 					
 function OnKeyboardKeyClicked(e)
@@ -623,6 +772,18 @@ function OnDeltaChange(e)
 	{
 		e.value=99999;
 	}
+}
+
+function onRepetationChange(e)
+{
+	if(e.value <=-1)
+	{
+		e.value=0;
+	}
+	else if(e.value >=50)
+	{
+		e.value=50;
+	}	
 }
 
 function OnButtonClick(e)
@@ -710,13 +871,15 @@ function onClickEvent(e){
 		{
 			keyboardg.style.opacity = "1.0";
 			keyboardg.style.visibility = "visible";
+			repetition_indic.style.top = "0";
 			contextmenu.style.opacity = "0";
 		    contextmenu.style.visibility = "hidden";
 		} 
 		else if(keyboardgCompStyle.visibility == "visible")
 		{
 			keyboardg.style.opacity = "0";
-			keyboardg.style.visibility = "hidden";	
+			keyboardg.style.visibility = "hidden";
+			repetition_indic.style.top = "-2.5vw"	
 			contextmenu.style.opacity = "0";
 		    contextmenu.style.visibility = "hidden";
 		}
@@ -775,11 +938,12 @@ mainDOMObject.addEventListener("click",function(e){
 var keyboard = document.querySelectorAll("#keyboard-grid div");
 for(var elem of keyboard)
 {
-	elem.onclick=OnKeyClicked;
+	elem.onclick = OnKeyClicked;
 }
 
 move.onmousedown = OnKeyboardGridDrag;
-repetition_opti.addEventListener("click",onClickRepetitionOpt);
+repetition_opti.onclick=onClickRepetitionOpt;
+multiple.onclick = null;
 
 </script>
 </body>
